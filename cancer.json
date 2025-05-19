@@ -1,0 +1,56 @@
+{
+  "nodes": {
+    "Contaminacion": {
+      "values": ["A", "B"],
+      "parents": [],
+      "cpt": [
+        {
+          "when": {},
+          "then": {
+            "A": 0.10,
+            "B": 0.90
+          }
+        }
+      ]
+    },
+    "Fumador": {
+      "values": ["V", "F"],
+      "parents": [],
+      "cpt": [
+        {
+          "when": {},
+          "then": {
+            "V": 0.30,
+            "F": 0.70
+          }
+        }
+      ]
+    },
+    "Cancer": {
+      "values": ["V", "F"],
+      "parents": ["Contaminacion", "Fumador"],
+      "cpt": [
+        { "when": { "Contaminacion": "A", "Fumador": "V" }, "then": { "V": 0.05, "F": 0.95 } },
+        { "when": { "Contaminacion": "A", "Fumador": "F" }, "then": { "V": 0.02, "F": 0.98 } },
+        { "when": { "Contaminacion": "B", "Fumador": "V" }, "then": { "V": 0.03, "F": 0.97 } },
+        { "when": { "Contaminacion": "B", "Fumador": "F" }, "then": { "V": 0.001, "F": 0.999 } }
+      ]
+    },
+    "RayosX": {
+      "values": ["V", "F"],
+      "parents": ["Cancer"],
+      "cpt": [
+        { "when": { "Cancer": "V" }, "then": { "V": 0.90, "F": 0.10 } },
+        { "when": { "Cancer": "F" }, "then": { "V": 0.20, "F": 0.80 } }
+      ]
+    },
+    "Disnea": {
+      "values": ["V", "F"],
+      "parents": ["Cancer"],
+      "cpt": [
+        { "when": { "Cancer": "V" }, "then": { "V": 0.65, "F": 0.35 } },
+        { "when": { "Cancer": "F" }, "then": { "V": 0.30, "F": 0.70 } }
+      ]
+    }
+  }
+}

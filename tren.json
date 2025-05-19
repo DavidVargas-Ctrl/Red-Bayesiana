@@ -1,0 +1,47 @@
+{
+  "nodes": {
+    "Rain": {
+      "values": ["none", "light", "heavy"],
+      "parents": [],
+      "cpt": [
+        {
+          "when": {},
+          "then": {
+            "none": 0.7,
+            "light": 0.2,
+            "heavy": 0.1
+          }
+        }
+      ]
+    },
+    "Maintenance": {
+      "values": ["yes", "no"],
+      "parents": ["Rain"],
+      "cpt": [
+        { "when": { "Rain": "none" }, "then": { "yes": 0.4, "no": 0.6 } },
+        { "when": { "Rain": "light" }, "then": { "yes": 0.2, "no": 0.8 } },
+        { "when": { "Rain": "heavy" }, "then": { "yes": 0.1, "no": 0.9 } }
+      ]
+    },
+    "Train": {
+      "values": ["on time", "delayed"],
+      "parents": ["Rain", "Maintenance"],
+      "cpt": [
+        { "when": { "Rain": "none", "Maintenance": "yes" }, "then": { "on time": 0.8, "delayed": 0.2 } },
+        { "when": { "Rain": "none", "Maintenance": "no" }, "then": { "on time": 0.9, "delayed": 0.1 } },
+        { "when": { "Rain": "light", "Maintenance": "yes" }, "then": { "on time": 0.6, "delayed": 0.4 } },
+        { "when": { "Rain": "light", "Maintenance": "no" }, "then": { "on time": 0.7, "delayed": 0.3 } },
+        { "when": { "Rain": "heavy", "Maintenance": "yes" }, "then": { "on time": 0.4, "delayed": 0.6 } },
+        { "when": { "Rain": "heavy", "Maintenance": "no" }, "then": { "on time": 0.5, "delayed": 0.5 } }
+      ]
+    },
+    "Appointment": {
+      "values": ["attend", "miss"],
+      "parents": ["Train"],
+      "cpt": [
+        { "when": { "Train": "on time" }, "then": { "attend": 0.9, "miss": 0.1 } },
+        { "when": { "Train": "delayed" }, "then": { "attend": 0.6, "miss": 0.4 } }
+      ]
+    }
+  }
+}
