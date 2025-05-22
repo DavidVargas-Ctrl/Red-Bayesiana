@@ -1,0 +1,41 @@
+{
+  "nodes": {
+    "CargaAcademica": {
+      "values": ["Alta", "Baja"],
+      "parents": [],
+      "cpt": [
+        {
+          "when": {},
+          "then": {
+            "Alta": 0.6,
+            "Baja": 0.4
+          }
+        }
+      ]
+    },
+    "ConsumoCafeina": {
+      "values": ["Sí", "No"],
+      "parents": ["CargaAcademica"],
+      "cpt": [
+        { "when": { "CargaAcademica": "Alta" }, "then": { "Sí": 0.8, "No": 0.2 } },
+        { "when": { "CargaAcademica": "Baja" }, "then": { "Sí": 0.3, "No": 0.7 } }
+      ]
+    },
+    "CalidadSueño": {
+      "values": ["Mal", "Bien"],
+      "parents": ["ConsumoCafeina"],
+      "cpt": [
+        { "when": { "ConsumoCafeina": "Sí" }, "then": { "Mal": 0.9, "Bien": 0.1 } },
+        { "when": { "ConsumoCafeina": "No" }, "then": { "Mal": 0.2, "Bien": 0.8 } }
+      ]
+    },
+    "DesempeñoAcademico": {
+      "values": ["Malo", "Bueno"],
+      "parents": ["CalidadSueño"],
+      "cpt": [
+        { "when": { "CalidadSueño": "Mal" }, "then": { "Malo": 0.85, "Bueno": 0.15 } },
+        { "when": { "CalidadSueño": "Bien" }, "then": { "Malo": 0.10, "Bueno": 0.90 } }
+      ]
+    }
+  }
+}
